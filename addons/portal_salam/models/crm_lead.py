@@ -241,6 +241,12 @@ class Lead(models.Model):
                     }
                     rec.partner_id.write(values)
     is_convert_dossier = fields.Boolean(default=False)
+    gerant = fields.Many2one(
+        'res.partner',
+        string='المسير',
+        domain="[('parent_id', '=', partner_id), ('is_company', '=', False)]",
+    )
+
     def convert_dossier(self):
         for rec in self:
             if rec.partner_id.id== False:
@@ -252,6 +258,7 @@ class Lead(models.Model):
                 'nom_client': rec.partner_id.id,
                 'demande': rec.demande.id,
                 'explanation': rec.explanation,
+                'is_created_from_crm': True,
             }
             workflow = self.env['wk.workflow.dashboard'].sudo().create(vals)
             values = {
@@ -260,6 +267,7 @@ class Lead(models.Model):
                 'workflow': workflow.id,
                 'nom_client': rec.partner_id.id,
                 'description_company': rec.description_company,
+                'gerant': rec.gerant.id if rec.gerant else False,
             }
             first_step = self.env['wk.etape'].sudo().create(values)
             for doc in rec.documents:

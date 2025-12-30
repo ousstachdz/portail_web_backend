@@ -29,6 +29,7 @@
             <group>
               <field name="demande" />
               <field name="explanation" />
+              <field name="gerant" options="{'no_create': True, 'no_open': True}" readonly="is_convert_dossier"/>
             </group>
             <group>
               <field name="nom_arabe" />
