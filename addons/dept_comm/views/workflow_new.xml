@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="wk_workflow_ponctuel_action" model="ir.actions.act_window">
+        <field name="name">طلب التمويل المؤقت</field>
+        <field name="res_model">wk.workflow.ponctuel</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_filter_creation_date': 1}</field>
+    </record>
+    <record id="wk_workflow_ponctuel_action_agence" model="ir.actions.act_window">
+        <field name="name">طلب التمويل المؤقت</field>
+        <field name="res_model">wk.workflow.ponctuel</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_filter_creation_date': 1}</field>
+    </record>
+    <record id="view_wk_workflow_ponctuel_tree" model="ir.ui.view">
+        <field name="name">wk.workflow.ponctuel.tree</field>
+        <field name="model">wk.workflow.ponctuel</field>
+        <field name="arch" type="xml">
+            <tree duplicate="false" delete="0">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="date_fin"/>
+                <field name="branche"/>
+                <field name="nom_client"/>
+                <field name="chiffre_affaire"/>
+                <field name="montant_demande"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_wk_workflow_ponctuel_search" model="ir.ui.view">
+        <field name="name">wk.workflow.ponctuel.search</field>
+        <field name="model">wk.workflow.ponctuel</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="branche"/>
+                <field name="nom_client"/>
+                <field name="state"/>
+                <filter string="تاريخ البدء" name="filter_creation_date" date="date" default_period="this_year,this_month"/>
+                <filter string="تاريخ الانتهاء" name="filter_fin_date" date="date_fin" default_period="this_year,this_month"/>
+                <filter string="Dossier Archivé" name="archived" domain="[('active', '=', False)]"/>
+
+                <group expand="1" string="Group By">
+                    <filter string="الفرع" name="group_by_branch" context="{'group_by': 'branche'}"/>
+                    <filter string="المتعامل" name="group_by_client" context="{'group_by': 'nom_client'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_wk_workflow_ponctuel_form" model="ir.ui.view">
+        <field name="name">wk.workflow.ponctuel.form</field>
+        <field name="model">wk.workflow.ponctuel</field>
+        <field name="arch" type="xml">
+            <form create="0" duplicate="false" delete="0">
+                <header>
+                    <button type="action" name="%(dept_comm.global_report)d" class="btn-primary" string="التقرير النهائي" width="10%"/>
+                    <button type="object" name="relance" class="btn-secondary" string="Relancer" invisible="state in ['1','11']" width="10%"/>
+                    <button type="object" name="a_revoir" class="btn-secondary" string="للمراجعة" invisible="state in ['1','11']" width="10%"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="open_tracking" type="object" class="oe_stat_button" icon="fa-history">
+                        </button>
+                        <button name="open_messages" type="object" icon="fa-regular fa-envelope"/>
+                    </div>
+                    <div class="oe_title content">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <div invisible="raison_refus == False" style="border: 2px solid;
+                                border-radius: 12px;
+                                border-style: dashed;
+                                border-color: #ff2345;
+                                margin-bottom: 2px;
+                                padding: 5px;">
+                        <group>
+                            <field name="raison_refus" readonly="1"/>
+                        </group>
+                    </div>
+                    <div>
+                        <group col="1">
+                            <group>
+                                <field name="date"/>
+                                <field name="comite_type" readonly="lanced" />
+                                <field name="nom_client" readonly="state != '1'" context="{'default_is_client':True}" domain="[('is_client', '=', True)]" options="{'no_create': True}"/>
+                                <field name="num_compte" readonly="1"/>
+                                <field name="branche" readonly="1"/>
+                                <field name="active" invisible="1"/>
+                                <field name="lanced" invisible="1"/>
+                                <field name="workflow_old" invisible="1" />
+                                <field name="workflow_old_type" />
+                                <field name="workflow_old_dashboard" invisible="workflow_old_type != 'dashboard'" options="{'no_create': True}" domain="[('nom_client', '=', nom_client),('state', '=', 7)]"/>
+                                <field name="workflow_old_ponctuel" invisible="workflow_old_type != 'ponctuel'" options="{'no_create': True}" domain="[('nom_client', '=', nom_client),('state', '=', 10)]"/>
+                                <field name="explanation"/>
+                            </group>
+                            <field name="plan_ids">
+                                <tree editable="bottom">
+                                    <field name="contrat_type"/>
+                                    <field name="name"/>
+                                    <field name="montant_ht"/>
+                                    <field name="montant_ht_dollar"/>
+                                    <field name="date_debut"/>
+                                    <field name="niveau" widget="percentage"/>
+                                    <field name="besoin"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group>
+                            <field name="solde" invisible="solde == False" />
+                        </group>
+                        <group col="3">
+                            <group>
+                                <button type="object" name="action_start" class="btn-primary" string="تحميل البيانات السابقة" style="width: 200px; height:200px;margin: 20px" invisible="workflow_old_ponctuel == False and workflow_old_dashboard == False" />
+                            </group>
+                            <group>
+                                <button type="object" name="get_data_t24" class="btn-primary" style="width: 200px; height:200px;margin: 20px" string="تحميل البيانات المالية"/>
+                            </group>
+                            <group>
+                                <button type="object" name="get_data" class="btn-primary" style="width: 200px; height:200px;margin: 20px" string="بدء دراسة الملف" invisible="workflow_old_ponctuel or workflow_old_dashboard" />
+                            </group>
+                        </group>
+                    </div>
+                    <field name="states" invisible="lanced == False" widget="kanban">
+                        <kanban create="0">
+                            <field name="etape"/>
+                            <field name="user_id"/>
+                            <field name="sequence"/>
+                            <templates>
+                                <t t-name="kanban-box">
+                                    <div t-att-class="oe_kanban_global_click" style="border: 2px solid rgb(24, 110, 100, 0.5); border-radius: 5px;">
+                                        <div t-attf-class="o_kanban_card_header">
+                                            <div class="o_kanban_card_header_title">
+                                                <div class="o_primary" style="font-size:16px; font-weight: bold;">
+                                                    <field name="name"/>
+                                                </div>
+                                            </div>
+                                            <div style="position: absolute; top: 5px; left: 5px;">
+                                                <field name="state_compute" widget="percentage" style="color: #4CAF50; font-weight: bold"/>
+                                            </div>
+                                        </div>
+                                        <div t-attf-class="o_kanban_card_content">
+                                            <div style="margin-top: 5px;">
+                                                <span>المكلف بالملف:</span>
+                                                <field name="user_id"/>
+                                            </div>
+                                            <div style="margin-top: 5px; position: absolute; bottom: 5px; left: 5px;">
+                                                <button type="object" name="action_get_view" string="انظر مزيد" class="btn-primary"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                            </templates>
+                        </kanban>
+                    </field>
+
+                    <div>
+                        <group>
+                            <field name="recommendation_2_decision" invisible="state in ['1','2']" readonly="state != '3'"/>
+                            <field name="recommendation_2" invisible="state in ['1','2']" readonly="state != '3'"/>
+                        </group>
+                    </div>
+                    <div invisible="comite_type == 'comite_1'">
+                        <group>
+                            <field name="recommendation_5_decision" invisible="state in ['1','2','3']" readonly="state != '4'"/>
+                            <field name="recommendation_5" invisible="state in ['1','2','3']" readonly="state != '4'"/>
+                        </group>
+                    </div>
+                    <div>
+                        <group>
+                            <field name="recommendation_4_decision" invisible="state in ['1','2','3','4']" readonly="state != '5'"/>
+                            <field name="recommendation_4" invisible="state in ['1','2','3','4']" readonly="state != '5'"/> 
+                        </group>
+                    </div>
+                    <div invisible="state in ['1','2','3','4','5']">
+                        <button name="action_open_risk" type="object" string="انقر هنا لدراسة المخاطر" class="button_secondary" />
+                        <group>
+                            <field name="recommendation_3_decision" readonly="state != '6'"/>
+                            <field name="recommendation_3" readonly="state != '6'"/>
+                        </group>
+                    </div>
+                    <div invisible="comite_type == 'comite_1'">
+                        <group>
+                            <field name="recommendation_6_decision" invisible="state in ['1','2','3','4','5','6']" readonly="state != '7'"/>
+                            <field name="recommendation_6" invisible="state in ['1','2','3','4','5','6']" readonly="state != '7'"/>
+                        </group>
+                    </div>
+                    <div>
+                        <group>
+                            <field name="recommendation_8_decision" invisible="state in ['1','2','3','4','5','6','7']" readonly="state != '8'"/>
+                            <field name="recommendation_8" invisible="state in ['1','2','3','4','5','6','7']" readonly="state != '8'"/>
+                        </group>
+                    </div>
+                    <div >
+                        <group>
+                            <field name="recommendation_9_decision" invisible="state in ['1','2','3','4','5','6','7','8']" readonly="state != '9'"/>
+                            <field name="recommendation_9" invisible="state in ['1','2','3','4','5','6','7','8']" readonly="state != '9'"/>
+                            
+                        </group>
+                    </div>
+                    <div invisible="comite_type == 'comite_2'">
+                        <group>
+                            <field name="type_fin_demande" invisible="state not in ['8'] or comite_type == 'comite_2'" />
+                        </group>
+                    </div>
+                        
+
+
+                    <button type="object" name="validate_information" string="تأكيد المعلومات" class="button_confirm" invisible="state in ['1', '2', '10']"/>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <menuitem id="wk_workflow_ponctuel_global_menu" name="طلبات التمويل المؤقتة" sequence="1" parent="dept_wk.wk_workflow_dashboard_menu" action="wk_workflow_ponctuel_action"/>
+    <menuitem id="dept_comm_menu" name="Fintrack Ponctuel" web_icon="dept_comm,static/description/icon.png" sequence="0">
+        <menuitem id="wk_workflow_ponctuel_dashboard_menu" name="طلبات التمويل المؤقتة" sequence="1" action="wk_workflow_ponctuel_action"/>
+    </menuitem>
+    <record id="scoring_inherit_view_form" model="ir.ui.view">
+        <field name="name">risk.scoring.inherit.view.form</field>
+        <field name="model">risk.scoring</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="dept_wk.view_risk_scoring_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='group_scorings']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

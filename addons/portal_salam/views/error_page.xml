@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+  <template id="opportunity_api_form_error_page" name="Opportunity Form Erreur page">
+    <t t-call="website.layout">
+      <div class="container mt16 mb16">
+        <div dir="rtl py-4">
+          <div class="alert alert-danger text-center my-4" role="alert">
+            <h4 class="alert-heading">
+              الرابط منتهي الصلاحية أو غير صالح.
+            </h4>
+            <p>
+              يرجى مراجعة الرابط أو التواصل مع الإدارة.
+            </p>
+            <hr></hr>
+            <p class="mb-0">
+              الرابط خاص بكل مستخدم وصالح لفترة محددة فقط
+            </p>
+          </div>
+        </div>
+      </div>
+    </t>
+  </template>
+</odoo>

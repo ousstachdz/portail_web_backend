@@ -1,0 +1,40 @@
+services:
+  web:
+    build: .
+    image: odoo_ocr
+    command: odoo -u portal_salam --dev=reload
+    depends_on:
+      - db
+    ports:
+      - '9999:8069'
+    environment:
+      - HOST=db
+      - USER=odoo
+      - PASSWORD=odoo
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    volumes:
+      - ./.odoo-web-data:/var/lib/odoo
+      - ./addons:/mnt/extra-addons
+      - ./config:/etc/odoo
+    develop:
+      watch:
+        - action: restart
+          path: ./addons
+          target: /mnt/extra-addons
+        - action: sync
+          path: ./config
+          target: /etc/odoo
+
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - ./.odoo-db-data:/var/lib/postgresql/data/pgdata
+volumes:
+  odoo-web-data:
+  odoo-db-data:

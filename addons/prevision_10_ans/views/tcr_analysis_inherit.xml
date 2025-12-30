@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<record id="tcr_analysis_import_view_form_inherit" model="ir.ui.view">
+    <field name="name">tcr.analysis.import.view.form.inherit</field>
+    <field name="model">tcr.analysis.import</field>
+    <field name="inherit_id" ref="financial_modeling.tcr_analysis_import_view_form"/>
+    <field name="arch" type="xml">
+        <!-- Add amount_n6, amount_n7, amount_n8, amount_n9 to the line_ids tree view -->
+        <xpath expr="//field[@name='line_ids']/tree" position="inside">
+            <field name="amount_n6"/>
+            <field name="amount_n7"/>
+            <field name="amount_n8"/>
+            <field name="amount_n9"/>
+        </xpath>
+
+        <!-- Add amount_n6, amount_n7, amount_n8, amount_n9 to the line_ids form view -->
+
+
+        <!-- Add amount_n6, amount_n7, amount_n8, amount_n9 to the tcr_prev_ids tree view -->
+        <xpath expr="//field[@name='tcr_prev_ids']/tree" position="inside">
+            <field name="amount_n6" readonly="1"/>
+            <field name="amount_n7" readonly="1"/>
+            <field name="amount_n8" readonly="1"/>
+            <field name="amount_n9" readonly="1"/>
+        </xpath>
+
+        <!-- Add amount_n6, amount_n7, amount_n8, amount_n9 to the recap_tcr_prev_ids tree view -->
+        <xpath expr="//field[@name='recap_tcr_prev_ids']/tree" position="inside">
+            <field name="amount_n6" readonly="1"/>
+            <field name="amount_n7" readonly="1"/>
+            <field name="amount_n8" readonly="1"/>
+            <field name="amount_n9" readonly="1"/>
+        </xpath>
+
+        <!-- Add amount_n6, amount_n7, amount_n8, amount_n9 to the tcr_prev_ratio_ids tree view -->
+        <xpath expr="//field[@name='tcr_prev_ratio_ids']/tree" position="inside">
+            <field name="amount_n6" readonly="1"/>
+            <field name="amount_n7" readonly="1"/>
+            <field name="amount_n8" readonly="1"/>
+            <field name="amount_n9" readonly="1"/>
+        </xpath>
+
+        <!-- Add amount_n6, amount_n7, amount_n8, amount_n9 to the cashflow_ids tree view -->
+        <xpath expr="//field[@name='cashflow_ids']/tree" position="inside">
+            <field name="amount_n6" decoration-bf="bilan in (1, 3, 7, 13)" readonly="bilan != 11"/>
+            <field name="amount_n6_dollar" optional="hide" decoration-bf="bilan in (1, 3, 7, 13)" readonly="bilan != 11"/>
+            <field name="amount_n7" decoration-bf="bilan in (1, 3, 7, 13)" readonly="bilan != 11"/>
+            <field name="amount_n7_dollar" optional="hide" decoration-bf="bilan in (1, 3, 7, 13)" readonly="bilan != 11"/>
+            <field name="amount_n8" decoration-bf="bilan in (1, 3, 7, 13)" readonly="bilan != 11"/>
+            <field name="amount_n8_dollar" optional="hide" decoration-bf="bilan in (1, 3, 7, 13)" readonly="bilan != 11"/>
+            <field name="amount_n9" decoration-bf="bilan in (1, 3, 7, 13)" readonly="bilan != 11"/>
+            <field name="amount_n9_dollar" optional="hide" decoration-bf="bilan in (1, 3, 7, 13)" readonly="bilan != 11"/>
+        </xpath>
+
+        <!-- Add amount_n6, amount_n7, amount_n8, amount_n9 to the evaluation_ids tree view -->
+        <xpath expr="//field[@name='evaluation_ids']/tree" position="inside">
+            <field name="amount_n6" decoration-bf="sequence == 4" readonly="sequence == 4"/>
+            <field name="amount_n7" decoration-bf="sequence == 4" readonly="sequence == 4"/>
+            <field name="amount_n8" decoration-bf="sequence == 4" readonly="sequence == 4"/>
+            <field name="amount_n9" decoration-bf="sequence == 4" readonly="sequence == 4"/>
+        </xpath>
+
+        <!-- Add amount_n6, amount_n7, amount_n8, amount_n9 to the evaluation_line_ids tree view -->
+        <xpath expr="//field[@name='evaluation_line_ids']/tree" position="inside">
+            <field name="amount_n6" decoration-bf="sequence == 5"/>
+            <field name="amount_n7" decoration-bf="sequence == 5"/>
+            <field name="amount_n8" decoration-bf="sequence == 5"/>
+            <field name="amount_n9" decoration-bf="sequence == 5"/>
+        </xpath>
+    </field>
+</record>
+    
+
+</odoo>

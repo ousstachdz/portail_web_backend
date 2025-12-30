@@ -1,0 +1,672 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+   <template id="report_open_revision_branch">
+   
+   
+    <t t-call="web.html_container">
+    <head>
+            <meta charset="UTF-8"/>
+            <style>
+                div{
+                    width:100%;
+                }
+                table{
+                    width:100%;
+                    direction: rtl;
+                    table-layout: fixed;
+                }
+                body {
+                    direction: rtl;
+                    font-family: 'NotoArabic-Regular';
+                }
+                td, th {
+                    text-align: center;  /* Centers the text horizontally */
+                    vertical-align: middle;  /* Centers the text vertically */
+                }
+                .reversed-table > tbody > tr > td {
+                            padding: 5px;
+                            border: 1px solid #808080;
+                            word-wrap: break-word;
+                            overflow-wrap: break-word;
+                            }
+            </style>
+        </head>
+
+
+    <t t-foreach="docs" t-as="doc">
+   
+
+        <div class="page-content">
+             
+             <h2 style="font-family:'roboto';padding: 5px; text-align: right;vertical-align: middle;">معرفة عميلك</h2>
+
+    <h3>معلومات العميل</h3>
+    <table class="table reversed-table ">
+        <tbody>
+            <tr>
+                <td style="font-family: 'NotoArabic-Regular'"><strong>الاسم:</strong></td>
+                <td style="font-family: 'NotoArabic-Regular'" t-esc="doc.nom_client.name"/>
+            </tr>
+            <tr>
+                <td style="font-family: 'NotoArabic-Regular'"><strong>رقم الحساب:</strong></td>
+                <td style="font-family: 'NotoArabic-Regular'" t-esc="doc.num_compte"/>
+            </tr>
+            <tr>
+                <td style="font-family: 'NotoArabic-Regular'"><strong>تاريخ فتح الحساب:</strong></td>
+                <td style="font-family: 'NotoArabic-Regular'" t-esc="doc.date_ouverture_compte"/>
+            </tr>
+            <tr>
+                <td style="font-family: 'NotoArabic-Regular'"><strong>الفرع:</strong></td>
+                <td style="font-family: 'NotoArabic-Regular'" t-esc="doc.branche.name"/>
+            </tr>
+            <tr>
+                <td style="font-family: 'NotoArabic-Regular'"><strong>الطلب:</strong></td>
+                <td style="font-family: 'NotoArabic-Regular'" t-esc="doc.demande.name"/>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3 style="font-family: 'NotoArabic-Regular'">الوثائق المرفقة</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th style="font-family: 'NotoArabic-Regular'">قائمة الوثائق</th>
+                <th style="font-family: 'NotoArabic-Regular'">الملف</th>
+                <th style="font-family: 'NotoArabic-Regular'">الإجابة</th>
+                <th style="font-family: 'NotoArabic-Regular'">ملاحظة</th>
+            </tr>
+        </thead>
+        <tbody>
+            <t t-foreach="doc.documents" t-as="document">
+                <tr>
+                    <td style="font-family: 'NotoArabic-Regular'" t-esc="document.list_doc"/>
+                    <td style="font-family: 'NotoArabic-Regular'">
+                        <t t-if="document.document">
+                            <span style="font-family: 'NotoArabic-Regular'">تم الرفع</span>
+                        </t>
+                        <t t-else="">
+                            <span style="font-family: 'NotoArabic-Regular'">غير متوفر</span>
+                        </t>
+                    </td>
+                    <td style="font-family: 'NotoArabic-Regular'" t-esc="document.answer"/>
+                    <td style="font-family: 'NotoArabic-Regular'" t-esc="document.note"/>
+                </tr>
+            </t>
+        </tbody>
+    </table>
+
+    <h3 style="font-family: 'NotoArabic-Regular'">تقرير الزيارة</h3>
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <td style="font-family: 'NotoArabic-Regular'"><strong>التصنيف:</strong></td>
+                <td style="font-family: 'NotoArabic-Regular'" t-esc="doc.classification.name"/>
+            </tr>
+            <tr>
+                <td style="font-family: 'NotoArabic-Regular'"><strong>عنوان المقر:</strong></td>
+                <td style="font-family: 'NotoArabic-Regular'" t-esc="doc.adress_siege"/>
+            </tr>
+            <tr>
+                <td style="font-family: 'NotoArabic-Regular'"><strong>الولاية:</strong></td>
+                <td style="font-family: 'NotoArabic-Regular'" t-esc="doc.wilaya.name"/>
+            </tr>
+            <tr>
+                <td style="font-family: 'NotoArabic-Regular'"><strong>الرقم الضريبي:</strong></td>
+                <td style="font-family: 'NotoArabic-Regular'" t-esc="doc.nif"/>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table table-bordered">
+                    <tr>
+                        <td style="font-family: 'NotoArabic-Regular'"><strong>تصنيف الشركة:</strong></td>
+                        <td style="font-family: 'NotoArabic-Regular'" t-esc="doc.classification.name"/>
+                    </tr>
+                    <tr>
+                        <td style="font-family: 'NotoArabic-Regular'"><strong>عنوان المقر الاجتماعي:</strong></td>
+                        <td style="font-family: 'NotoArabic-Regular'" t-esc="doc.adress_siege"/>
+                    </tr>
+                    <tr>
+                        <td style="font-family: 'NotoArabic-Regular'"><strong>الولاية:</strong></td>
+                        <td style="font-family: 'NotoArabic-Regular'" t-esc="doc.wilaya.name"/>
+                    </tr>
+                    <tr>
+                        <td style="font-family: 'NotoArabic-Regular'"><strong>الرقم الضريبي:</strong></td>
+                        <td style="font-family: 'NotoArabic-Regular'" t-esc="doc.nif"/>
+                    </tr>
+                    <tr>
+                        <td style="font-family: 'NotoArabic-Regular'"><strong>رقم السجل التجاري:</strong></td>
+                        <td style="font-family: 'NotoArabic-Regular'" t-esc="doc.num_registre_commerce"/>
+                    </tr>
+                    <tr>
+                        <td style="font-family: 'NotoArabic-Regular'"><strong>تاريخ التسجيل:</strong></td>
+                        <td style="font-family: 'NotoArabic-Regular'" t-esc="doc.date_inscription"/>
+                    </tr>
+                    <tr>
+                        <td style="font-family: 'NotoArabic-Regular'"><strong>تاريخ بدء النشاط:</strong></td>
+                        <td style="font-family: 'NotoArabic-Regular'" t-esc="doc.date_debut_activite"/>
+                    </tr>
+                    <tr>
+                        <td style="font-family: 'NotoArabic-Regular'"><strong>النشاط الرئيسي:</strong></td>
+                        <td style="font-family: 'NotoArabic-Regular'" t-esc="doc.activite.name"/>
+                    </tr>
+                    <tr>
+                        <td style="font-family: 'NotoArabic-Regular'"><strong>النشاط الثانوي:</strong></td>
+                        <td style="font-family: 'NotoArabic-Regular'" t-esc="doc.activite_sec"/>
+                    </tr>
+                </table>
+
+                <h3 style="font-family: 'NotoArabic-Regular'">تفاصيل النشاط</h3>
+                <table class="table table-bordered">
+                    <tr>
+                        <td style="font-family: 'NotoArabic-Regular'"><strong>رمز النشاط:</strong></td>
+                        <td style="font-family: 'NotoArabic-Regular'" t-esc="doc.activity_code"/>
+                    </tr>
+                    <tr>
+                        <td style="font-family: 'NotoArabic-Regular'"><strong>وصف النشاط:</strong></td>
+                        <td style="font-family: 'NotoArabic-Regular'" t-esc="doc.activity_description"/>
+                    </tr>
+                    <tr>
+                        <td style="font-family: 'NotoArabic-Regular'"><strong>الهاتف:</strong></td>
+                        <td style="direction: ltr;text-align: right;font-family: 'NotoArabic-Regular'">
+                            <t t-esc="doc.phone"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-family: 'NotoArabic-Regular'"><strong>البريد الإلكتروني:</strong></td>
+                        <td style="font-family: 'NotoArabic-Regular'" t-esc="doc.email"/>
+                    </tr>
+                    <tr>
+                        <td style="font-family: 'NotoArabic-Regular'"><strong>الموقع الإلكتروني:</strong></td>
+                        <td style="font-family: 'NotoArabic-Regular'" t-esc="doc.siteweb"/>
+                    </tr>
+                    <tr>
+                        <td style="font-family: 'NotoArabic-Regular'"><strong>إسم المدير:</strong></td>
+                        <td style="font-family: 'NotoArabic-Regular'" t-esc="doc.gerant.name"/>
+                    </tr>
+                    <tr>
+                        <td style="font-family: 'NotoArabic-Regular'"><strong>الهاتف المدير:</strong></td>
+                        <td style="direction: ltr;text-align: right;font-family: 'NotoArabic-Regular'">
+                            <t t-esc="doc.phone_gerant"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-family: 'NotoArabic-Regular'"><strong>البريد الإلكتروني المدير:</strong></td>
+                        <td style="font-family: 'NotoArabic-Regular'" t-esc="doc.email_gerant"/>
+                    </tr>
+                    <tr>
+                        <td style="font-family: 'NotoArabic-Regular'"><strong>البريد الإلكتروني للاستقبال:</strong></td>
+                        <td style="font-family: 'NotoArabic-Regular'" t-esc="doc.email_to"/>
+                    </tr>
+                    <tr>
+                        <td style="font-family: 'NotoArabic-Regular'"><strong>الشكل القانوني:</strong></td>
+                        <td style="font-family: 'NotoArabic-Regular'" t-esc="doc.forme_jur.name"/>
+                    </tr>
+                    <tr>
+                        <td style="font-family: 'NotoArabic-Regular'"><strong>رقم الشريك:</strong></td>
+                        <td style="font-family: 'NotoArabic-Regular'" t-esc="doc.partner_id.name"/>
+                    </tr>
+                    <tr>
+                        <td style="font-family: 'NotoArabic-Regular'"><strong>راس المال الشركة KDA:</strong></td>
+                        <td style="font-family: 'NotoArabic-Regular'">
+                            <t t-esc="doc.chiffre_affaire"/> <t t-esc="doc.currency_id.name"/>
+                        </td>
+                    </tr>
+                </table>
+
+<h2 style="font-family: 'NotoArabic-Regular'">توزيع راس مال الشركة</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th style="text-align: center;">اسم الشريك</th>
+            <th style="text-align: center;">العمر</th>
+            <th style="text-align: center;">حالة الشريك</th>
+            <th style="text-align: center;">الجنسية</th>
+            <th style="text-align: center;">نسبة التوزيع</th>
+        </tr>
+    </thead>
+    <tbody>
+        <t t-foreach="doc.apropos" t-as="partner">
+            <tr>
+                <td t-esc="partner.nom_partenaire"/>
+                <td t-esc="partner.age"/>
+                <td t-esc="partner.statut_partenaire"/>
+                <td t-esc="partner.nationalite.name"/>
+                <td t-esc="partner.pourcentage" style="text-align: center;"/>
+            </tr>
+        </t>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4" style="text-align: right; font-weight: bold;">المجموع:</td>
+            <td t-esc="sum(doc.apropos.mapped('pourcentage'))" style="text-align: center; font-weight: bold;"/>
+        </tr>
+    </tfoot>
+</table>
+
+
+
+
+
+    <h2 style="font-family: 'NotoArabic-Regular'">اعرف عميلك KYC</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th style="font-family: 'NotoArabic-Regular'">المعلومة</th>
+                <th style="font-family: 'NotoArabic-Regular'">الإجابة</th>
+                <th style="font-family: 'NotoArabic-Regular'">التفاصيل</th>
+            </tr>
+        </thead>
+        <tbody>
+            <t t-foreach="doc.kyc" t-as="line">
+                <tr>
+                    <td style="font-family: 'NotoArabic-Regular'" t-esc="line.info"/>
+                    <td style="font-family: 'NotoArabic-Regular'" t-esc="line.answer"/>
+                    <td style="font-family: 'NotoArabic-Regular'" t-esc="line.detail"/>
+                </tr>
+            </t>
+        </tbody>
+    </table>
+
+
+
+<div class="page">
+    <h2 style="font-family: 'NotoArabic-Regular'; text-align: center;">فريق التسيير</h2>
+
+    <!-- Management Team Table -->
+    <h3 style="font-family: 'NotoArabic-Regular';">فريق الإدارة</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th style="text-align: center; font-family: 'NotoArabic-Regular';">الاسم</th>
+                <th style="text-align: center; font-family: 'NotoArabic-Regular';">الوظيفة</th>
+                <th style="text-align: center; font-family: 'NotoArabic-Regular';">مستوى التعليم</th>
+                <th style="text-align: center; font-family: 'NotoArabic-Regular';">العمر</th>
+                <th style="text-align: center; font-family: 'NotoArabic-Regular';">الخبرة</th>
+            </tr>
+        </thead>
+        <tbody>
+            <t t-foreach="doc.gestion" t-as="manager">
+                <tr>
+                    <td style="text-align: center; font-family: 'NotoArabic-Regular';" t-esc="manager.name"/>
+                    <td style="text-align: center; font-family: 'NotoArabic-Regular';" t-esc="manager.job"/>
+                    <td style="text-align: center; font-family: 'NotoArabic-Regular';" t-esc="manager.niveau_etude"/>
+                    <td style="text-align: center; font-family: 'NotoArabic-Regular';" t-esc="manager.age"/>
+                    <td style="text-align: center; font-family: 'NotoArabic-Regular';" t-esc="manager.experience"/>
+                </tr>
+            </t>
+        </tbody>
+    </table>
+
+    <!-- Employees Table -->
+    <h3 style="font-family: 'NotoArabic-Regular';">الموظفون</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th style="text-align: center; font-family: 'NotoArabic-Regular';">الاسم</th>
+                <th style="text-align: center; font-family: 'NotoArabic-Regular';">عدد الوظائف الدائمة</th>
+                <th style="text-align: center; font-family: 'NotoArabic-Regular';">عدد الوظائف غير الدائمة</th>
+            </tr>
+        </thead>
+        <tbody>
+            <t t-foreach="doc.employees" t-as="employee">
+                <tr>
+                    <td style="text-align: center; font-family: 'NotoArabic-Regular';" t-esc="employee.name"/>
+                    <td style="text-align: center; font-family: 'NotoArabic-Regular';" t-esc="employee.poste_permanent"/>
+                    <td style="text-align: center; font-family: 'NotoArabic-Regular';" t-esc="employee.poste_non_permanent"/>
+                </tr>
+            </t>
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+          <h2 style="font-family: 'NotoArabic-Regular'">مقرات تابعة للشركة</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th style="font-family: 'NotoArabic-Regular'">الاسم</th>
+            <th style="font-family: 'NotoArabic-Regular'">العنوان</th>
+            <th style="font-family: 'NotoArabic-Regular'">النوع</th>
+        </tr>
+    </thead>
+    <tbody>
+        <t t-foreach="doc.sieges" t-as="line">
+            <tr>
+                <td style="font-family: 'NotoArabic-Regular'" t-esc="line.name"/>
+                <td style="font-family: 'NotoArabic-Regular'" t-esc="line.adresse"/>
+                <td style="font-family: 'NotoArabic-Regular'" t-esc="line.nature.name"/>
+            </tr>
+        </t>
+    </tbody>
+</table>
+
+<h2 style="font-family: 'NotoArabic-Regular'">حجم و هيكل التمويلات المطلوبة</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th style="font-family: 'NotoArabic-Regular'">نوع الطلب</th>
+            <th style="font-family: 'NotoArabic-Regular'">المبلغ</th>
+            <th style="font-family: 'NotoArabic-Regular'">المبلغ بالدولار</th>
+            <th style="font-family: 'NotoArabic-Regular'">السبب</th>
+            <th style="font-family: 'NotoArabic-Regular'">نسبة التمويل</th>
+            <th style="font-family: 'NotoArabic-Regular'">المدة</th>
+        </tr>
+    </thead>
+    <tbody>
+        <t t-foreach="doc.tailles" t-as="line">
+            <tr>
+                <td style="font-family: 'NotoArabic-Regular'" t-esc="line.type_demande.name"/>
+                <td style="font-family: 'NotoArabic-Regular'" t-esc="line.montant"/>
+                <td style="font-family: 'NotoArabic-Regular'" t-esc="line.montant_usd"/>
+                <td style="font-family: 'NotoArabic-Regular'" t-esc="line.raison"/>
+                <td style="font-family: 'NotoArabic-Regular'" t-esc="line.preg"/>%
+                <td style="font-family: 'NotoArabic-Regular'" t-esc="line.duree"/>
+            </tr>
+        </t>
+    </tbody>
+</table>
+
+<h2 style="font-family: 'NotoArabic-Regular'">الوضعية المالية</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th style="font-family: 'NotoArabic-Regular'">البنك</th>
+            <th style="font-family: 'NotoArabic-Regular'">نوع التمويل</th>
+            <th style="font-family: 'NotoArabic-Regular'">المبلغ</th>
+            <th style="font-family: 'NotoArabic-Regular'">الرصيد القائم</th>
+            <th style="font-family: 'NotoArabic-Regular'">الضمانات</th>
+        </tr>
+    </thead>
+    <tbody>
+        <t t-foreach="doc.situations" t-as="line">
+            <tr>
+                <td style="font-family: 'NotoArabic-Regular'" t-esc="line.banque.name"/>
+                <td style="font-family: 'NotoArabic-Regular'" t-esc="line.type_fin.name"/>
+                <td style="font-family: 'NotoArabic-Regular'" t-esc="line.montant"/>
+                <td style="font-family: 'NotoArabic-Regular'" t-esc="line.encours"/>
+                <td style="font-family: 'NotoArabic-Regular'" t-esc="line.garanties"/>
+            </tr>
+        </t>
+    </tbody>
+</table>
+
+<h2 style="font-family: 'NotoArabic-Regular'">المعلومات المالية حسب السنوات</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th style="font-family: 'NotoArabic-Regular'">النوع</th>
+            <th style="font-family: 'NotoArabic-Regular'">السنة 1</th>
+            <th style="font-family: 'NotoArabic-Regular'">السنة 2</th>
+            <th style="font-family: 'NotoArabic-Regular'">السنة 3</th>
+        </tr>
+    </thead>
+    <tbody>
+        <t t-foreach="doc.situations_fin" t-as="line">
+            <tr>
+                <td style="font-family: 'NotoArabic-Regular'" t-esc="line.type"/>
+                <td style="font-family: 'NotoArabic-Regular'" t-esc="line.year1"/>
+                <td style="font-family: 'NotoArabic-Regular'" t-esc="line.year2"/>
+                <td style="font-family: 'NotoArabic-Regular'" t-esc="line.year3"/>
+            </tr>
+        </t>
+    </tbody>
+</table>
+
+ </div>
+
+    </t>
+   
+<div class="page">
+            <h2 style="font-family: 'NotoArabic-Regular'">الموردون و الزبائن</h2>
+<div>
+    <span style="font-family: 'NotoArabic-Regular'"><strong>ملف الموردين و الزبائن:</strong></span>
+    <span style="font-family: 'NotoArabic-Regular'" t-esc="doc.suppliers_clients_file1"/>
+</div>
+<div>
+    <span style="font-family: 'NotoArabic-Regular'"><strong>الموردون:</strong></span>
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th style="font-family: 'NotoArabic-Regular'">الاسم</th>
+                <th style="font-family: 'NotoArabic-Regular'">الدولة</th>
+                <th style="font-family: 'NotoArabic-Regular'">نوع الدفع</th>
+            </tr>
+        </thead>
+        <tbody>
+            <t t-if="doc.fournisseur">
+                <t t-foreach="doc.fournisseur" t-as="supplier">
+                    <tr>
+                        <td style="font-family: 'NotoArabic-Regular'" t-esc="supplier.name"/>
+                        <td style="font-family: 'NotoArabic-Regular'" t-esc="supplier.country.name"/>
+                        <t t-foreach="supplier.type_payment" t-as="sup">
+                        <td style="font-family: 'NotoArabic-Regular'" t-esc="sup.name"/> 
+                        </t>
+                        
+                    </tr>
+                </t>
+            </t>
+        </tbody>
+    </table>
+</div>
+<div>
+    <span style="font-family: 'NotoArabic-Regular'"><strong>ملف العملاء:</strong></span>
+    <span style="font-family: 'NotoArabic-Regular'" t-esc="doc.suppliers_clients_file2"/>
+</div>
+<div>
+    <span style="font-family: 'NotoArabic-Regular'"><strong>الزبائن:</strong></span>
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th style="font-family: 'NotoArabic-Regular'">الاسم</th>
+                <th style="font-family: 'NotoArabic-Regular'">الدولة</th>
+                <th style="font-family: 'NotoArabic-Regular'">نوع الدفع</th>
+            </tr>
+        </thead>
+        <tbody>
+            <t t-foreach="doc.client" t-as="client">
+                <tr>
+                    <td style="font-family: 'NotoArabic-Regular'" t-esc="client.name"/>
+                    <td style="font-family: 'NotoArabic-Regular'" t-esc="client.country.name"/>
+                    <t t-foreach="client.type_payment" t-as="sup">
+                    <td style="font-family: 'NotoArabic-Regular'" t-esc="sup.name"/> 
+                    </t>
+                    
+                </tr>
+            </t>
+        </tbody>
+    </table>
+            </div>
+        </div>
+
+        <div class="page">
+           <h2 style="font-family: 'NotoArabic-Regular'">معلومات حول الشركات ذات الصلة (KDA)</h2>
+<div>
+    <span style="font-family: 'NotoArabic-Regular'"><strong>بيانات KDA:</strong></span>
+    <span style="font-family: 'NotoArabic-Regular'" t-esc="doc.kda"/>
+</div>
+<div>
+    <span style="font-family: 'NotoArabic-Regular'"><strong>الشركات:</strong></span>
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th style="font-family: 'NotoArabic-Regular'">الاسم</th>
+                <th style="font-family: 'NotoArabic-Regular'">تاريخ الإنشاء</th>
+                <th style="font-family: 'NotoArabic-Regular'">النشاط</th>
+                <th style="font-family: 'NotoArabic-Regular'">رقم الأعمال</th>
+                <th style="font-family: 'NotoArabic-Regular'">رقم الأعمال (N-1)</th>
+                <th style="font-family: 'NotoArabic-Regular'">رقم الأعمال (N)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <t t-foreach="doc.companies" t-as="company">
+                <tr>
+                    <td style="font-family: 'NotoArabic-Regular'" t-esc="company.name"/>
+                    <td style="font-family: 'NotoArabic-Regular'" t-esc="company.date_creation"/>
+                    <td style="font-family: 'NotoArabic-Regular'" t-esc="company.activite.name"/>
+                    <td style="font-family: 'NotoArabic-Regular'" t-esc="company.chiffre_affaire"/>
+                    <td style="font-family: 'NotoArabic-Regular'" t-esc="company.n1_num_affaire"/>
+                    <td style="font-family: 'NotoArabic-Regular'" t-esc="company.n_num_affaire"/>
+                </tr>
+            </t>
+        </tbody>
+    </table>
+</div>
+</div>
+<div class="page">
+    <h2 style="font-family: 'NotoArabic-Regular'; text-align: center;">نبذة عن نشاط الشركة</h2>
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <td style="font-family: 'NotoArabic-Regular';"><strong>وصف الشركة:</strong></td>
+                <td style="font-family: 'NotoArabic-Regular';" t-esc="doc.description_company"/>
+            </tr>
+            <tr>
+                <td style="font-family: 'NotoArabic-Regular';"><strong>تاريخ العلاقة:</strong></td>
+                <td style="font-family: 'NotoArabic-Regular';" t-esc="doc.history_relation"/>
+            </tr>
+            <tr>
+                <td style="font-family: 'NotoArabic-Regular';"><strong>وحدة الإنتاج:</strong></td>
+                <td style="font-family: 'NotoArabic-Regular';" t-esc="doc.unit_prod"/>
+            </tr>
+            <tr>
+                <td style="font-family: 'NotoArabic-Regular';"><strong>المخزون:</strong></td>
+                <td style="font-family: 'NotoArabic-Regular';" t-esc="doc.stock"/>
+            </tr>
+            <tr>
+                <td style="font-family: 'NotoArabic-Regular';"><strong>إنتاج الشركة:</strong></td>
+                <td style="font-family: 'NotoArabic-Regular';" t-esc="doc.prod_company"/>
+            </tr>
+            <tr>
+                <td style="font-family: 'NotoArabic-Regular';"><strong>السياسة التجارية:</strong></td>
+                <td style="font-family: 'NotoArabic-Regular';" t-esc="doc.politique_comm"/>
+            </tr>
+            <tr>
+                <td style="font-family: 'NotoArabic-Regular';"><strong>دورة الاستغلال:</strong></td>
+                <td style="font-family: 'NotoArabic-Regular';" t-esc="doc.cycle_exploit"/>
+            </tr>
+            <tr>
+                <td style="font-family: 'NotoArabic-Regular';"><strong>المنافسة:</strong></td>
+                <td style="font-family: 'NotoArabic-Regular';" t-esc="doc.concurrence"/>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="page">
+    <h2 style="font-family: 'NotoArabic-Regular'; text-align: center;">الاستثمار والنتائج</h2>
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <td style="font-family: 'NotoArabic-Regular';"><strong>برنامج الاستثمار:</strong></td>
+                <td style="font-family: 'NotoArabic-Regular';" t-esc="doc.program_invest"/>
+            </tr>
+            <tr>
+                <td style="font-family: 'NotoArabic-Regular';"><strong>نتائج الزيارة:</strong></td>
+                <td style="font-family: 'NotoArabic-Regular';" t-esc="doc.result_visit"/>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3 style="font-family: 'NotoArabic-Regular'; text-align: center;">الصور</h3>
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th style="font-family: 'NotoArabic-Regular'; text-align: center;">الصورة</th>
+                <th style="font-family: 'NotoArabic-Regular'; text-align: center;">عرض</th>
+                <th style="font-family: 'NotoArabic-Regular'; text-align: center;">الاسم</th>
+            </tr>
+        </thead>
+        <tbody>
+            <t t-foreach="doc.images" t-as="image">
+                <tr>
+                    <td style="text-align: center;"><img t-att-src="image.picture" t-att-alt="image.name" style="max-width:100px; max-height:100px;"/></td>
+                    <td style="text-align: center;" t-esc="image.to_show"/>
+                    <td style="text-align: center;" t-esc="image.name"/>
+                </tr>
+            </t>
+        </tbody>
+    </table>
+</div>
+
+<div class="page">
+    <h2 style="font-family: 'NotoArabic-Regular'; text-align: center;">معلومات إضافية</h2>
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <td style="font-family: 'NotoArabic-Regular';"><strong>بطاقة المعايير النوعية:</strong></td>
+                <td style="font-family: 'NotoArabic-Regular';" t-esc="doc.risk_scoring.name"/>
+            </tr>
+            <tr>
+                <td style="font-family: 'NotoArabic-Regular';"><strong>توصية الزيارة:</strong></td>
+                <td style="font-family: 'NotoArabic-Regular';" t-esc="doc.recommendation_visit"/>
+            </tr>
+            <tr>
+                <td style="font-family: 'NotoArabic-Regular';"><strong>توصية المسؤول:</strong></td>
+                <td style="font-family: 'NotoArabic-Regular';" t-esc="doc.recommendation_responsable_agence"/>
+            </tr>
+            <tr>
+                <td style="font-family: 'NotoArabic-Regular';"><strong>استقرار رأي الوكالة:</strong></td>
+                <td style="font-family: 'NotoArabic-Regular';" t-esc="doc.stab_avis_agence"/>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</t>
+
+
+
+
+   </template>     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <record id="action_report_open_revision" model="ir.actions.report">
+    <field name="name">تقرير المعلومات المسجلة</field>
+    <field name="model">wk.etape</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">dept_wk.report_open_revision_branch</field>
+    <field name="report_file">dept_wk.report_open_revision_branch</field>
+    <field name="print_report_name">'%s - %s' % (object.name, object.nom_client.name)</field>
+    <field name="binding_model_id" ref="model_wk_etape"/>
+    </record>
+    
+    </data>
+    
+
+</odoo>
+
+
+
+
+

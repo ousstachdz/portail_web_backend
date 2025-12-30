@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+<!-- 
+  <record id="menu_opportunity_api_form" model="website.menu">
+    <field name="name">طلب التمويل</field>
+    <field name="url">/opportunity_api/form</field>
+    <field name="parent_id" ref="website.main_menu" />
+    <field name="sequence" type="int">1</field>
+  </record> -->
+
+  <template id="custom_template" inherit_id="website.layout">
+    <xpath expr="//meta[last()]" position="after">
+      <script
+        type="text/javascript"
+        src="/portal_salam/static/src/js/steps_components/companies.js"
+      />
+      <script
+        type="text/javascript"
+        src="/portal_salam/static/src/js/steps_components/clients.js"
+      />
+      <script
+        type="text/javascript"
+        src="/portal_salam/static/src/js/steps_components/suppliers.js"
+      />
+      <script
+        type="text/javascript"
+        src="/portal_salam/static/src/js/steps_components/situation.js"
+      />
+      <script
+        type="text/javascript"
+        src="/portal_salam/static/src/js/steps_components/financialRequests.js"
+      />
+      <script
+        type="text/javascript"
+        src="/portal_salam/static/src/js/steps_components/managementTeam.js"
+      />
+      <script
+        type="text/javascript"
+        src="/portal_salam/static/src/js/steps_components/partners.js"
+      />
+      <script
+        type="text/javascript"
+        src="/portal_salam/static/src/js/steps_components/stepsIndicator.js"
+      />
+      <script
+        type="text/javascript"
+        src="/portal_salam/static/src/js/steps_components/stepsIndicatorControl.js"
+      />
+      <script
+        type="text/javascript"
+        src="/portal_salam/static/src/js/steps/form1.js"
+      />
+      <script
+        type="text/javascript"
+        src="/portal_salam/static/src/js/steps/form2.js"
+      />
+      <script
+        type="text/javascript"
+        src="/portal_salam/static/src/js/steps/form3.js"
+      />
+      <script
+        type="text/javascript"
+        src="/portal_salam/static/src/js/steps/form4.js"
+      />
+      <script
+        type="text/javascript"
+        src="/portal_salam/static/src/js/steps/form5.js"
+      />
+      <script
+        type="text/javascript"
+        src="/portal_salam/static/src/js/steps/form6.js"
+      />
+      <script
+        type="text/javascript"
+        src="/portal_salam/static/src/js/form.js"
+      />
+    </xpath>
+  </template>
+
+  <template id="opportunity_api_form" name="Opportunity Form">
+    <t t-call="website.layout">
+      <div class="container mt16 mb16">
+        <style>
+          .stepper-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin: 0 auto;
+          }
+
+          .stepper-item {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+          }
+
+          .step-counter {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #bbb;
+            color: white;
+            z-index: 5;
+            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: bold;
+          }
+
+          .stepper-item.active .step-counter {
+            background-color: #045444;
+            color: #fff;
+          }
+
+          .stepper-item.active {
+            font-weight: bold;
+          }
+
+          .stepper-item.active::after {
+            border-bottom: 6px solid #045444;
+          }
+
+          .stepper-item.completed .step-counter {
+            background-color: #045444;
+            color: white;
+          }
+
+          .stepper-item.completed::after {
+            border-bottom: 6px solid #045444;
+          }
+
+          .stepper-item::after {
+            content: '';
+            position: absolute;
+            top: 21px;
+            left: 50%;
+            width: 100%;
+            border-bottom: 6px solid #bbb;
+          }
+
+          .stepper-item:last-child::after {
+            content: none;
+          }
+
+          .text-center {
+            text-align: center;
+          }
+
+          .mt32 {
+            margin-top: 32px;
+          }
+
+          .mb32 {
+            margin-bottom: 32px;
+          }
+
+          .active-svg {
+            fill: #045444;
+          }
+
+          @media (max-width: 768px) {
+            .step-counter {
+              width: 35px;
+              height: 35px;
+              font-size: 14px;
+            }
+
+            .stepper-item::after {
+              top: 16px;
+            }
+          }
+
+          .form-group {
+            margin-bottom: 20px;
+          }
+
+          .form-group label {
+            font-weight: bold;
+            margin-bottom: 10px;
+          }
+
+          h5,
+          h3 {
+            color: #045444;
+            font-weight: bold;
+            margin: 20px 0;
+          }
+          .btn-close {
+            margin: 20px 0 0 !important;
+          }
+          .stepper-item:first-child::before,
+          .stepper-item:last-child::after {
+            content: none;
+          }
+          .field-require {
+            color: red;
+          }
+          .btn-primary {
+            background-color: #045444;
+            border-color: #045444;
+          }
+          .btn-secondary {
+            background-color: #d5d8d7;
+            color: #045444;
+            border-color: #d5d8d7;
+          }
+
+          .btn-secondary:hover {
+            background-color: #ebebeb;
+            color: #033f34;
+            border-color: #ebebeb;
+          }
+
+          .btn-primary:hover {
+            background-color: #033f34;
+            border-color: #033f34;
+          }
+
+          .btn-primary:focus,
+          .btn-primary:active,
+          .btn-primary:focus-visible {
+            background-color: #022e24;
+            border-color: #022e24;
+          }
+
+          .btn-primary:active {
+            background-color: #022e24;
+            border-color: #022e24;
+          }
+
+          a {
+            color: #045444;
+          }
+
+          a:hover {
+            color: #033f34;
+          }
+
+          a:focus,
+          a:active {
+            color: #022e24;
+            outline: none;
+            text-decoration: underline;
+          }
+
+          .navbar-light .navbar-nav .nav-link.active,
+          .navbar-light .navbar-nav .nav-link:hover {
+            color: #045444;
+          }
+          .nav-link.active,
+          .nav-link:hover {
+            font-weight: bold;
+          }
+          .navbar-light .navbar-nav .nav-link:focus {
+            color: #022e24;
+          }
+          .level-indicator {
+            width: 100%;
+            height: 2px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            background-color: rgb(255, 255, 255);
+          }
+          .level-indicator-bar {
+            width: 40%;
+            height: 2px;
+            background-color: rgb(216, 0, 0);
+          }
+          .red {
+            background-color: rgb(216, 0, 0);
+          }
+          .tableWrapper th {
+            --bg-opacity: 1;
+            background-color: rgba(
+              var(--light-rgb),
+              var(--bg-opacity)
+            ) !important;
+          }
+
+          .tableWrapper th,
+          .tableWrapper td {
+            min-width: 165px !important;
+          }
+          .tableWrapper td li {
+            list-style: none;
+          }
+          .tableWrapper td ul {
+            padding: 0;
+          }
+          .tableWrapper th:last-child,
+          .tableWrapper td:last-child {
+            width: 80px !important;
+            min-width: 80px !important;
+            text-align: center;
+            vertical-align: middle;
+          }
+          .tableWrapper {
+            overflow-y: hidden;
+            overflow-x: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #888 #f2f2f2;
+          }
+
+          .tableWrapper ::-webkit-scrollbar {
+            width: 12px;
+          }
+
+          .tableWrapper ::-webkit-scrollbar-track {
+            background: #f2f2f2;
+          }
+
+          .tableWrapper ::-webkit-scrollbar-thumb {
+            background-color: #888;
+            border-radius: 10px;
+            border: 3px solid #f31c1c;
+          }
+
+          html {
+            scrollbar-width: thin;
+            scrollbar-color: #888 #f2f2f2;
+          }
+          .btn-delete:hover {
+            color: #f14242;
+          }
+          .btn-delete {
+            background-color: #ffffff00;
+            color: #f31c1c;
+            outline: none;
+            border: none;
+            cursor: pointer;
+            animation-duration: 300ms;
+          }
+          .confirmation-message {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 50vh;
+            background-color: #f9f9f9; 
+        }
+    
+        .message-box {
+            background-color: #fff; 
+            padding: 20px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+            max-width: 400px;
+            text-align: center;
+            border: 2px solid #045444; 
+        }
+    
+        .message-text {
+            margin: 1rem;
+            font-size: 1.5rem;
+            color: #333; 
+            font-family: 'Cairo', sans-serif; 
+            line-height: 1.6;
+        }
+    
+        .mt32 {
+            margin-top: 32px;
+        }
+    
+        .mb32 {
+            margin-bottom: 32px;
+        }
+        .custom-file-input {
+          position: relative;
+          overflow: hidden;
+      }
+      
+      .custom-file-input:before {
+          content: 'اختر ملفاً';
+          display: inline-block;
+          background: #045444;
+          color: white;
+          padding: 5px 10px;
+          border-radius: 4px;
+          cursor: pointer;
+      }
+      
+      .custom-file-input:hover:before {
+          background: #036B5B;
+      }
+      
+      .custom-file-input input[type="file"] {
+          position: absolute;
+          left: 0;
+          top: 0;
+          opacity: 0;
+          width: 100%;
+          height: 100%;
+          cursor: pointer;
+      }
+      
+        </style>
+        <div dir="rtl" id="form_portail"></div>
+      </div>
+    </t>
+  </template>
+</odoo>

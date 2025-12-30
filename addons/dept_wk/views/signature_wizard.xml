@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <odoo>
+ <data>
+
+  <record id="view_wk_wizard_signature_form" model="ir.ui.view">
+            <field name="name">signature</field>
+            <field name="model">wk.multi.signature.wizard</field>
+            <field name="arch" type="xml">
+                <form editable="bottom">
+                <sheet>
+                    <group>
+                       <field name="signature_ids" widget="one2many">
+                        <tree editable="bottom" options='{"no_create": true, "mode": "edit"}'>
+                            <field name="position"/>
+                            <field name="position_comite"/>
+                        </tree>
+                    </field>
+                        
+                        
+                    </group>
+                </sheet>    
+            <footer>
+            <button string="التقرير النهائي" name="generate_global_report" type="object" class="oe_highlight"/>
+            </footer>
+                </form>
+            </field>
+        </record>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <record id="wizard_signature_action" model="ir.actions.act_window">
+            <field name="name">Signature</field>
+            <field name="res_model">wk.multi.signature.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+ 
+    
+ 
+ </data>
+ 
+    
+ 
+ </odoo>
+ 
+ 
+ 

@@ -1,0 +1,111 @@
+:root {
+  --o-cc2-link: #065243;
+  --o-cc2-btn-primary: #F2643B;
+  --o-cc2-btn-primary-border: #F2643B;
+  --o-cc1-link: #0d4d40;
+  --o-cc1-btn-primary: #F2643B;
+  --o-cc1-btn-primary-border: #F2643B;
+  -o-cc4-bg: #071530;
+}
+*:focus {
+  outline: 2px solid #071530 !important;
+  outline-offset: 2px;
+}
+html[lang='ar'] {
+  font-family: 'Some Westernized Arabic Font', sans-serif;
+  unicode-bidi: plaintext;
+}
+
+a:not(.o_navbar a, .o_frontend_to_backend_nav a) {
+  color: #071530 !important;
+}
+
+button.btn-link {
+  color: #F2643B !important;
+}
+.new_table_style h6,
+.new_table_style td,
+.new_table_style th {
+  text-align: left !important;
+}
+.new_table_style th {
+  --bg-opacity: 1;
+  background-color: rgba(243, 242, 242, var(--bg-opacity)) !important;
+}
+
+.new_table_style th,
+.new_table_style td {
+  text-align: left;
+  padding: 0.75rem 0.75rem;
+  font-size: 1rem;
+  min-width: 165px !important;
+}
+
+.new_table_style th {
+  font-weight: bold;
+}
+.new_table_style td li {
+  list-style: none;
+}
+.new_table_style td ul {
+  padding: 0;
+}
+.new_table_style {
+  overflow-y: hidden;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f2f2f2;
+}
+
+.new_table_style ::-webkit-scrollbar {
+  width: 12px;
+}
+
+.new_table_style ::-webkit-scrollbar-track {
+  background: #f2f2f2;
+}
+
+.new_table_style ::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+  border: 3px solid #f31c1c;
+}
+
+.new_table_style h6 {
+  color: #071530;
+  margin-bottom: 1.4rem;
+  padding-top: 2.4rem;
+  text-align: left;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background-color: #F2643B !important;
+}
+.new_table_style tr:last-child td:last-child {
+  background-color: hsl(0, 0%, 100%);
+  color: #575757;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+.result tfoot tr:last-child td:last-child::before {
+  content: 'Total: ';
+  color: #000000;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.delete tbody tr td:last-child button {
+  color: #cf0505;
+
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+label.o_form_label,
+label.o_form_label_empty,
+label.o_form_label_readonly {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #000000;
+}

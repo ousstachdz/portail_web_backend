@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <template id="website_404_custom" name="test_404" inherit_id="website.page_404">
+        <xpath expr="." position="replace">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure">
+                    <section class="s_text_block o_colored_level py-5 text-center">
+                        <div class="container">
+                            <div class="container">
+                                <div class="d-flex justify-content-center">
+                                    <img src="/portal_salam/static/src/img/logo.png" height="150" />
+                                </div>
+                            </div>
+                            <h1 class="display-1 fw-bold">404</h1>
+                            <h2 class="mb-3">الصفحة غير موجودة</h2>
+                            <p class="text-muted mb-4">
+                                عذراً، الصفحة التي تبحث عنها غير متوفرة أو قد تم نقلها.
+                            </p>
+
+                            <a class="btn" href="/">
+                                العودة إلى الصفحة الرئيسية
+                            </a>
+                        </div>
+                    </section>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

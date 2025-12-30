@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+
+    <record id="view_wk_companies_wizard_form" model="ir.ui.view">
+        <field name="name">wk.companies.wizard.form</field>
+        <field name="model">wk.companies.wizard</field>
+        <field name="arch" type="xml">
+            <form create="0">
+                <sheet>
+                    <group>
+                        <field name="company_domains" invisible="1" />
+                        <field name="client_name_domain" invisible="1"/>
+                        <field name="company_id" domain="[('id','in',client_name_domain)]"   options="{'no_open': True}"/>
+                    </group>
+                </sheet>
+             <footer>
+             <button string="اضافة" name="add_companies" type="object" class="oe_highlight"/>
+             </footer>   
+            </form>
+        </field>
+    </record>
+   <record id="wk_companies_wizard_action_window" model="ir.actions.act_window">
+            <field name="name">confirmation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wk.companies.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+</data>
+
+
+
+    
+
+</odoo>

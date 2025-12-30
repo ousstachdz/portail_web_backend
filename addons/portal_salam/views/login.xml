@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+  <record id="menu_login_account" model="website.menu">
+    <field name="name">متابعة الحساب</field>
+    <field name="url">/opportunity/login</field>
+    <field name="parent_id" ref="website.main_menu" />
+    <field name="sequence" type="int">2</field>
+  </record>
+
+
+  <template id="custom_template" inherit_id="website.layout">
+    <xpath expr="//meta[last()]" position="after">
+      <script
+        type="text/javascript"
+        src="/portal_salam/static/src/js/steps_components/companies.js"
+      />
+    </xpath>
+  </template>
+
+  <template id="opportunity_login_form" name="Opportunity Login Form">
+    <t t-call="website.layout">
+      <div class="container mt16 mb16">
+      </div>
+    </t>
+  </template>
+</odoo>

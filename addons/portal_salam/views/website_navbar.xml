@@ -1,0 +1,22 @@
+<!-- my_module/views/website_navbar.xml -->
+<odoo>
+  <template id="custom_website_navbar" inherit_id="website.layout">
+    <xpath expr="//header" position="replace">
+      <header id="top" class="navbar navbar-expand-md shadow mb-5 bg-body">
+        <div class="container">
+          <a class="navbar-brand" href="/">
+            <!-- <img src="/portal_salam/static/src/img/logo_long_name.png" height="40" /> -->
+          </a>
+
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link" style="color: rgb(7, 21, 48)" href="/">الصفحة الرئيسية</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </header>
+    </xpath>
+  </template>
+</odoo>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- List type credit -->
+        <record id="product_1" model="wk.product">
+            <field name="name">بيع اجل/ مرابحة محلية</field>
+        </record>
+        <record id="product_2" model="wk.product">
+            <field name="name">استصناع متوسط المدى</field>
+        </record>
+        <record id="product_3" model="wk.product">
+            <field name="name">سلم</field>
+        </record>
+        <record id="product_4" model="wk.product">
+            <field name="name">بيع وكالة</field>
+        </record>
+        <record id="product_5" model="wk.product">
+            <field name="name">استصناع</field>
+        </record>
+        <record id="product_6" model="wk.product">
+            <field name="name">مضاربة</field>
+        </record>
+        <record id="product_7" model="wk.product">
+            <field name="name">مساقاة</field>
+        </record>
+        <record id="product_8" model="wk.product">
+            <field name="name">مشاركة</field>
+        </record>
+        <record id="product_9" model="wk.product">
+            <field name="name">تمويل ايجاري</field>
+        </record>
+        <record id="product_10" model="wk.product">
+            <field name="name">سقف اعتمادات مستندية / بوالص تحصيل موصول ببيع اجل</field>
+        </record>
+
+        <record id="product_11" model="wk.product">
+            <field name="name">سقف بيع اجل/ مرابحة محلية </field>
+        </record>
+        <record id="product_12" model="wk.product">
+            <field name="name">سقف استصناع متوسط المدى </field>
+        </record>
+        <record id="product_13" model="wk.product">
+            <field name="name">سقف سلم </field>
+        </record>
+        <record id="product_14" model="wk.product">
+            <field name="name">سقف بيع وكالة</field>
+        </record>
+        <record id="product_15" model="wk.product">
+            <field name="name">سقف استصناع</field>
+        </record>
+        <record id="product_16" model="wk.product">
+            <field name="name">سقف مضاربة</field>
+        </record>
+        <record id="product_17" model="wk.product">
+            <field name="name">سقف مساقاة</field>
+        </record>
+        <record id="product_18" model="wk.product">
+            <field name="name">سقف مشاركة</field>
+        </record>
+        <record id="product_19" model="wk.product">
+            <field name="name">سقف تمويل ايجاري</field>
+        </record>
+        <record id="product_20" model="wk.product">
+            <field name="name">سقف اعتمادات مستندية / بوالص تحصيل موصول ببيع اجل</field>
+        </record>
+        <record id="product_21" model="wk.product">
+            <field name="name">سقف كفالات متنوعة</field>
+        </record>
+        <record id="product_22" model="wk.product">
+            <field name="name">سقف كفالات حسن تنفيذ</field>
+        </record>
+        <record id="product_23" model="wk.product">
+            <field name="name">سقف كفالات دخول عطاء</field>
+        </record>
+        <record id="product_24" model="wk.product">
+            <field name="name">سقف كفالات دخول عطاء</field>
+        </record>
+        <record id="product_25" model="wk.product">
+            <field name="name">كفالة استرجاع الدفعة المقدمة</field>
+        </record>
+        <record id="product_26" model="wk.product">
+            <field name="name">كفالة حسن تنفيذ</field>
+        </record>
+        <record id="product_27" model="wk.product">
+            <field name="name">كفالة دخول عطاء</field>
+        </record>
+        <record id="product_28" model="wk.product">
+            <field name="name">تمويل استغلالي</field>
+            <field name="for_branch">True</field>
+        </record>
+        <record id="product_29" model="wk.product">
+            <field name="name">تمويل استثماري</field>
+            <field name="for_branch">True</field>
+        </record>
+        <record id="product_30" model="wk.product">
+            <field name="name">تمويل ايجاري</field>
+            <field name="for_branch">True</field>
+        </record>
+        <record id="product_31" model="wk.product">
+            <field name="name">سقف اعتمادات مستنديه/عند ورود المستندات</field>
+        </record>
+        <record id="product_32" model="wk.product">
+            <field name="name">بيع لاجل متوسط المدى</field>
+        </record>
+        <record id="product_33" model="wk.product">
+            <field name="name">كفالات جمركية</field>
+        </record>
+        <record id="product_34" model="wk.product">
+            <field name="name">اعتمادات مستنديه / بوالص تحصيل موصول ببيع أجل</field>
+        </record>
+        <record id="product_35" model="wk.product">
+            <field name="name"> اعتمادات مستنديه / بوالص تحصيل موصول بسلم </field>
+        </record>
+    </data>
+</odoo>

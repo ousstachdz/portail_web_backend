@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record id="ponctual_links_action" model="ir.actions.act_window">
+            <field name="name">إنشاء روابط</field>
+            <field name="res_model">ponctual.links</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="ponctual_links_view_form" model="ir.ui.view">
+            <field name="name">ponctual.links.view.form</field>
+            <field name="model">ponctual.links</field>
+            <field name="arch" type="xml">
+                <form string="Link Management">
+                    <sheet>
+                        <group>
+                            <field name="email" required="id == False" />
+
+                            <group invisible="id == False">
+                                <field name="user_id" readonly="1" />
+                                <field name="created_at" widget="date" readonly="1" />
+                                <field name="expired_at" widget="date" readonly="1" />
+                                <field name="link" widget="url" readonly="1" />
+
+                                <field name="is_valid" invisible="1" />
+                                <field name="is_used" invisible="1" />
+                                <field name="is_inactive" invisible="1" />
+                                <field name="link_uid" invisible="1" />
+
+                            </group>
+                            <div invisible="id == False">
+
+                                <div class="alert alert-success"
+                                    invisible="not is_valid or is_used or expired_at &lt;= context_today() or is_inactive">
+                                    <strong>رابط صالح</strong>
+                                    <p>هذا الرابط نشط ويمكن استخدامه حتى <field name="expired_at"
+                                            widget="date" readonly="1" />.</p>
+                                </div>
+
+                                <div class="alert alert-info" invisible="not is_used">
+                                    <strong>الرابط مستعمل مسبقاً</strong>
+                                    <p>تم استخدام هذا الرابط بنجاح.</p>
+                                </div>
+
+                                <div class="alert alert-warning" invisible="not is_inactive">
+                                    <strong>تم إلغاء الرابط </strong>
+                                    <p>تم إلغاء تنشيط الرابط.</p>
+                                </div>
+
+
+                            </div>
+                        </group>
+
+                        <div>
+                            <button name="action_create_link"
+                                type="object"
+                                string="إنشاء روابط"
+                                class="btn-primary"
+                                invisible="id != False" />
+
+                            <button name="action_resend_link"
+                                type="object"
+                                string="إعادة إرسال الرابط"
+                                class="btn-primary"
+                                invisible="id == False" />
+
+                            <button name="action_deactivate_link"
+                                type="object"
+                                string="إلغاء تنشيط الرابط"
+                                class="btn-danger"
+                                invisible="id == False or not is_valid" />
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="ponctual_links_view_tree" model="ir.ui.view">
+            <field name="name">ponctual.links.view.tree</field>
+            <field name="model">ponctual.links</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="user_id"></field>
+                    <field name="email"></field>
+                    <field name="created_at" widget="date"></field>
+                    <field name="expired_at" widget="date"></field>
+                    <field name="link" widget="url"></field>
+                    <field name="is_valid"></field>
+                </tree>
+            </field>
+        </record>
+    </data>
+    <menuitem
+        id="ponctual_links_menu"
+        name="إنشاء رابط"
+        action="ponctual_links_action"
+        sequence="10" />
+
+</odoo>

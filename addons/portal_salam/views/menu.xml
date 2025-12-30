@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+    
+        <menuitem
+            id="portal_menu"
+            name="إنشاء رابط"
+            sequence="10"/>
+        
+        <menuitem
+            id="ponctual_links_menu"
+            name="إنشاء الروابط"
+            action="ponctual_links_action"
+            parent="portal_menu"
+            sequence="10"/>    
+
+    </data>
+    
+
+</odoo>

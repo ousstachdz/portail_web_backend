@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="wkk_etape_wizard_form_view" model="ir.ui.view">
+        <field name="name">wk.consulter.compte.form</field>
+        <field name="model">wk.consulter.compte</field>
+        <field name="arch" type="xml">
+            <form string="Consulter Compte">
+                <div>
+                    <field name="compte_client_ids">
+                        <tree create="0" delete="0" readonly="1">
+                            <field name="account_id"/>
+                            <field name="ledgerBalance"/>
+                            <field name="workingBalance"/>
+                            <field name="accountCurrency"/>
+                            <field name="categoryName"/>
+                        </tree>
+                    </field>
+                </div>
+                <footer>
+                    <button name="close" string="Fermer" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>
+
+

@@ -1,0 +1,23 @@
+[[config]]
+name = "Odoo 17 Dev"
+odoo_path = "/home/dev/odoo/odoo-17"
+addons_paths = [
+    "/home/dev/odoo/odoo-17/entreprise-addons",
+    "${workspaceFolder}/addons",
+    "/home/dev/odoo/odoo-17/addons"
+]
+python_path = "/home/dev/odoo/odoo-17/venv/bin/python3"
+[config.python]
+python_path = "/home/dev/odoo/odoo-17/venv/bin/python"
+python_env = { PYTHONPATH = "/home/dev/odoo/odoo-17.0" }
+
+[config.diagnostic_settings]
+OLS03019 = "Info"
+OLS05057 = "Disabled"
+
+
+# Optional: filter noisy diagnostics
+[[config.diagnostic_filters]]
+codes = ["OLS.*"]
+paths = ["**/addons/contact/**"]   # Ignore everything inside tests
+path_type = "in"
